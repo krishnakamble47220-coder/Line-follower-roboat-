@@ -1,0 +1,83 @@
+
+// Line Follower Robot Program
+
+#define LEFT_IR 2
+#define RIGHT_IR 3
+
+#define IN1 8
+#define IN2 9
+#define IN3 10
+#define IN4 11
+
+void setup()
+{
+  pinMode(LEFT_IR, INPUT);
+  pinMode(RIGHT_IR, INPUT);
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+}
+
+void loop()
+{
+  int left = digitalRead(LEFT_IR);
+  int right = digitalRead(RIGHT_IR);
+
+  // Both sensors detect black line
+  if (left == LOW && right == LOW)
+  {
+    forward();
+  }
+
+  // Left sensor detects black line
+  else if (left == LOW && right == HIGH)
+  {
+    turnLeft();
+  }
+
+  // Right sensor detects black line
+  else if (left == HIGH && right == LOW)
+  {
+    turnRight();
+  }
+
+  // Both sensors detect white surface
+  else
+  {
+    stopRobot();
+  }
+}
+
+void forward()
+{
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void turnLeft()
+{
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void turnRight()
+{
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+}
+
+void stopRobot()
+{
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+}
